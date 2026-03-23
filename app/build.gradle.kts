@@ -1,15 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
+    id ("com.google.devtools.ksp")
     alias(libs.plugins.kotlin.android)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.enesbaydar.todolistapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.enesbaydar.todolistapp"
@@ -44,18 +43,22 @@ android {
 
 dependencies {
     implementation(libs.core.ktx)
+    implementation(libs.test.core.ktx)
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    // Kapt yerine KSP kullanıyoruz:
     ksp("androidx.room:room-compiler:$roomVersion")
-    // --- ViewModel & LiveData (Lifecycle) ---
-    val lifecycle_version = "2.7.0"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
+// Sürüm numarası 2.6.x veya üzeri olabilir, fark etmez.
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+
+    implementation("com.google.dagger:hilt-android:2.59")
+    ksp("com.google.dagger:hilt-android-compiler:2.59")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -72,4 +75,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+ksp {
+    arg("room.generateKotlin", "true")
 }

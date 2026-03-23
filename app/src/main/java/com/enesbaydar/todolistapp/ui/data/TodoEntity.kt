@@ -1,6 +1,5 @@
 package com.enesbaydar.todolistapp.ui.data
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,6 +8,7 @@ data class TodoEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
+    val description: String,
     val isCompleted: Boolean = false
 
 )

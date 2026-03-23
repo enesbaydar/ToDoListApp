@@ -13,6 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.enesbaydar.todolistapp.ui.TodoScreen
+import com.enesbaydar.todolistapp.ui.data.TodoDatabase
+import com.enesbaydar.todolistapp.ui.data.TodoViewModel
+import com.enesbaydar.todolistapp.ui.data.repository.TodoRepository
 import com.enesbaydar.todolistapp.ui.theme.ToDoListAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +26,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ToDoListAppTheme {
-
+                 TodoScreen(viewModel = TodoViewModel(TodoRepository(todoDao = TodoDatabase.getDatabase(this).todoDao())))
             }
         }
     }
